@@ -366,16 +366,13 @@
             text-transform: uppercase;
             text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
             white-space: nowrap;
+            /* THÊM HIỆU ỨNG CON TRỎ CHO LOGO */
+            cursor: pointer;
         }
         
+        /* ẨN HOÀN TOÀN THANH CHUYỂN ĐỔI */
         .user-switch { 
-            display: flex; 
-            background: #2a0a0a; 
-            padding: 3px; 
-            border-radius: 16px; 
-            gap: 3px; 
-            border: 1px solid var(--border); 
-            font-size: 0.8rem;
+            display: none !important; 
         }
         
         .role-btn { 
@@ -1262,7 +1259,6 @@
 
     <div id="petals-container"></div>
 
-    <!-- Intro Screen -->
     <div id="intro-overlay">
         <div class="intro-background"></div>
         <div class="intro-container">
@@ -1289,23 +1285,13 @@
         <div class="countdown" id="countdown">5</div>
     </div>
 
-    <!-- Audio elements ĐÃ XÓA -->
-    <!-- <audio id="tet-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-firecracker-strings-2980.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="food-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-cooking-oil-in-pan-1750.mp3" type="audio/mpeg">
-    </audio> -->
-
-    <!-- Unboxing Overlay -->
     <div id="unboxing-overlay">
         <div id="opening-bag-icon" class="opening-bag">🧧</div>
         <h2 id="unboxing-status">ĐANG KHUI TÚI LỘC...</h2>
     </div>
 
-    <!-- Header -->
     <div class="header">
-        <div class="logo">🍜 TẾT 8/1</div>
+        <div class="logo" onclick="handleLogoClick()">🍜 TẾT 8/1</div>
         <div style="display: flex; align-items: center; gap: 8px;">
             <div class="user-switch">
                 <div class="role-btn active" id="btn-guest" onclick="switchAcc('guest')">Thực khách</div>
@@ -1315,33 +1301,28 @@
         </div>
     </div>
 
-    <!-- Main Container -->
     <div class="container">
-        <!-- Home Screen -->
         <div id="screen-home" class="screen active">
             <div class="hero-section">
                 <h1 class="hero-title" id="welcome-text">Lễ Hội Ẩm Thực Tết 8/1</h1>
                 <div id="guest-notice" class="exp-tag">🎯 Ăn ngon - Chơi vui - Trúng thưởng lớn!</div>
             </div>
             
-            <!-- Special Banner -->
             <div class="special-banner">
                 <div>
                     <div>🔥</div>
                     <div>
                         <div>MÓN ĐẶC BIỆT HÔM NAY</div>
-                        <div>Trà dâu tằm 18k - Combo Mẹt Lớn 24k</div>
+                        <div>Coming soon!</div>
                     </div>
                 </div>
                 <button onclick="nav('bag')">ĐẶT NGAY</button>
             </div>
             
-            <!-- Menu Button -->
             <center>
                 <button class="btn btn-menu" onclick="showMenuModal()">📜 THỰC ĐƠN TẾT</button>
             </center>
             
-            <!-- Menu Grid -->
             <div class="menu-grid">
                 <div class="menu-card" onclick="nav('bag')">
                     <div class="menu-icon">🧧</div>
@@ -1355,7 +1336,6 @@
                 </div>
             </div>
             
-            <!-- Info Grid -->
             <div class="info-grid">
                 <div class="info-items">
                     <div class="info-item">
@@ -1378,7 +1358,6 @@
             </div>
         </div>
 
-        <!-- Bag Screen -->
         <div id="screen-bag" class="screen">
             <div class="back-button" onclick="nav('home')">← Về trang chủ</div>
             <div class="game-container">
@@ -1392,7 +1371,6 @@
             </div>
         </div>
 
-        <!-- Wheel Screen -->
         <div id="screen-wheel" class="screen">
             <div class="back-button" onclick="nav('home')">← Về trang chủ</div>
             <div class="game-container">
@@ -1406,7 +1384,6 @@
             </div>
         </div>
 
-        <!-- Stats Screen -->
         <div id="screen-stats" class="screen">
             <div class="back-button" onclick="nav('home')">← Về trang chủ</div>
             <h2>📊 BÁO CÁO ẨM THỰC</h2>
@@ -1441,58 +1418,56 @@
         </div>
     </div>
 
-    <!-- Menu Modal -->
     <div id="menu-modal" class="overlay" onclick="hideMenuModal(event)">
         <div class="modal" onclick="event.stopPropagation()">
             <h2>📜 THỰC ĐƠN LỄ HỘI</h2>
             <div class="menu-content">
-                <div class="menu-category">🧋 NƯỚC GIẢI KHÁT</div>
+                <div class="menu-category">🧋 Coming soon</div>
                 <div class="menu-item">
-                    <span><span class="menu-item-icon">🧋</span>Trà tắc khổng lồ</span>
-                    <span class="menu-item-price">8k</span>
+                    <span><span class="menu-item-icon">🧋</span>???</span>
+                    <span class="menu-item-price">?k</span>
                 </div>
                 <div class="menu-item">
-                    <span><span class="menu-item-icon">🍑</span>Trà đào cam sả</span>
-                    <span class="menu-item-price">13k</span>
+                    <span><span class="menu-item-icon">🧋</span>???</span>
+                    <span class="menu-item-price">?k</span>
                 </div>
                 <div class="menu-item">
-                    <span><span class="menu-item-icon">🍓</span>Trà dâu tằm</span>
-                    <span class="menu-item-price">18k</span>
-                </div>
-                
-                <div class="menu-category">🌭 ĂN VẶT NGÀY TẾT</div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🍢</span>Nem chua rán</span>
-                    <span class="menu-item-price">9k</span>
-                </div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🫔</span>Bánh lá</span>
-                    <span class="menu-item-price">12k</span>
-                </div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🍱</span>Combo Mẹt Lớn</span>
-                    <span class="menu-item-price">24k</span>
+                    <span><span class="menu-item-icon">🧋</span>???</span>
+                    <span class="menu-item-price">?k</span>
                 </div>
                 
-                <div class="menu-category">🍮 TRÁNG MIỆNG</div>
+                <div class="menu-category">🧋 Coming soon</div>
                 <div class="menu-item">
-                    <span><span class="menu-item-icon">🍮</span>Rau câu dừa</span>
-                    <span class="menu-item-price">6k</span>
+                    <span><span class="menu-item-icon">🧋</span>???</span>
+                    <span class="menu-item-price">?k</span>
                 </div>
                 <div class="menu-item">
-                    <span><span class="menu-item-icon">🍨</span>Sữa chua mít</span>
-                    <span class="menu-item-price">13k</span>
+                    <span><span class="menu-item-icon">🫔</span>???</span>
+                    <span class="menu-item-price">?k</span>
                 </div>
                 <div class="menu-item">
-                    <span><span class="menu-item-icon">🥣</span>Chè bưởi</span>
-                    <span class="menu-item-price">17k</span>
+                    <span><span class="menu-item-icon">🧋</span>???</span>
+                    <span class="menu-item-price">?k</span>
+                </div>
+                
+                <div class="menu-category">🧋 Coming soon</div>
+                <div class="menu-item">
+                    <span><span class="menu-item-icon">🧋</span>???</span>
+                    <span class="menu-item-price">?k</span>
+                </div>
+                <div class="menu-item">
+                    <span><span class="menu-item-icon">🧋</span>???</span>
+                    <span class="menu-item-price">?k</span>
+                </div>
+                <div class="menu-item">
+                    <span><span class="menu-item-icon">🧋</span>???</span>
+                    <span class="menu-item-price">?k</span>
                 </div>
             </div>
             <button class="btn btn-primary" onclick="hideMenuModal()">ĐÓNG THỰC ĐƠN</button>
         </div>
     </div>
 
-    <!-- Auth Modal -->
     <div id="auth-overlay" class="overlay">
         <div class="modal">
             <h3>🔐 XÁC THỰC CHỦ QUÁN</h3>
@@ -1502,7 +1477,6 @@
         </div>
     </div>
 
-    <!-- Bag Selector Modal -->
     <div id="bag-selector" class="overlay">
         <div class="modal">
             <h3>CHỌN TÚI LỘC BẤT KỲ</h3>
@@ -1511,7 +1485,6 @@
         </div>
     </div>
 
-    <!-- Result Modal -->
     <div id="res-modal" class="overlay" style="z-index: 10001;">
         <div class="modal">
             <div id="res-icon">🎁</div>
@@ -1534,7 +1507,7 @@
         // DỮ LIỆU SẢN PHẨM
         const ITEMS = {
             'Nước': [ 
-                {name:"Trà tắc khổng lồ", cost:8000, gW:15, aW:75, icon:"🧋", desc:"Trà tắc mát lạnh"}, 
+                {name:"Trà tắc khổng lồ", cost:8000, gW:15, aW:75, icon:"🥤", desc:"Trà tắc mát lạnh"}, 
                 {name:"Trà đào cam sả", cost:13000, gW:35, aW:20, icon:"🍑", desc:"Thơm mùi đào tươi"}, 
                 {name:"Trà dâu tằm", cost:18000, gW:50, aW:5, icon:"🍓", desc:"Dâu tằm nguyên chất"} 
             ],
@@ -1588,15 +1561,6 @@
             if (!event || event.target.id === 'menu-modal') {
                 document.getElementById('menu-modal').style.display = 'none';
             }
-        }
-
-        // HÀM PHÁT ÂM THANH (ĐÃ XÓA)
-        function playTetSound() {
-            // Không làm gì cả - đã xóa audio
-        }
-
-        function playFoodSound() {
-            // Không làm gì cả - đã xóa audio
         }
 
         // HÀM LẤY LỜI CHÚC NGẪU NHIÊN
@@ -1753,7 +1717,7 @@
             window.scrollTo(0, 0);
         }
 
-        // CHUYỂN ĐỔI TÀI KHOẢN
+        // CHUYỂN ĐỔI TÀI KHOẢN (ĐỂ LẠI ĐỂ TƯƠNG THÍCH, NHƯNG KHÔNG CÒN NÚT BẤM)
         function switchAcc(role) {
             if(role === 'admin') {
                 if(pinUnlocked) {
@@ -1768,28 +1732,6 @@
                 isAdmin = false;
                 updateHeader();
                 nav('home');
-            }
-        }
-
-        // KIỂM TRA PIN
-        function checkPin() {
-            const pinInput = document.getElementById('admin-pin');
-            if(pinInput.value === 'bi12345678') {
-                pinUnlocked = true;
-                activateAdmin();
-                document.getElementById('auth-overlay').style.display = 'none';
-                pinInput.value = '';
-                
-                confetti({
-                    particleCount: 120,
-                    spread: 80,
-                    origin: { y: 0.6 },
-                    colors: ['#fbbf24', '#34d399', '#ffffff']
-                });
-            } else {
-                alert('Sai PIN! Vui lòng thử lại.');
-                pinInput.value = '';
-                pinInput.focus();
             }
         }
 
@@ -2072,6 +2014,69 @@
                 stats = [];
                 localStorage.setItem('tet_8_1_food', JSON.stringify(stats));
                 renderStats();
+            }
+        }
+
+        // --- TÍNH NĂNG MỚI: NHẤN LOGO 5 LẦN ĐỂ MỞ ADMIN ---
+        let logoTapCount = 0;
+        let logoTapTimer = null;
+
+        function handleLogoClick() {
+            // Nếu đã từng nhập pass đúng rồi -> Chỉ cần nhấn 1 lần để đổi qua lại
+            if (pinUnlocked) {
+                isAdmin = !isAdmin; // Đảo ngược trạng thái
+                updateHeader();
+                nav('home');
+                
+                // Thông báo nhỏ
+                if(isAdmin) {
+                    alert("Đã bật chế độ: CHỦ QUÁN 🛠️");
+                } else {
+                    alert("Đã về chế độ: KHÁCH 👀");
+                }
+                return;
+            }
+
+            // Nếu chưa nhập pass -> Cần nhấn 5 lần
+            logoTapCount++;
+            
+            // Nếu ngừng nhấn quá 1 giây sẽ reset đếm lại
+            clearTimeout(logoTapTimer);
+            logoTapTimer = setTimeout(() => {
+                logoTapCount = 0;
+            }, 1000);
+
+            // Nếu đủ 5 lần nhấn
+            if (logoTapCount === 5) {
+                document.getElementById('auth-overlay').style.display = 'flex';
+                // Focus vào ô nhập
+                setTimeout(() => {
+                    document.getElementById('admin-pin').focus();
+                }, 300);
+                logoTapCount = 0; // Reset đếm
+            }
+        }
+
+        // KIỂM TRA PIN (Đã cập nhật để tự động chuyển admin khi đúng)
+        function checkPin() {
+            const pinInput = document.getElementById('admin-pin');
+            // Chấp nhận cả 2 mật khẩu bạn đã cung cấp
+            if(pinInput.value === '8b1_2026' || pinInput.value === 'bi12345678') {
+                pinUnlocked = true; // Đánh dấu đã mở khóa thành công
+                activateAdmin();    // Vào admin ngay lập tức
+                document.getElementById('auth-overlay').style.display = 'none';
+                pinInput.value = '';
+                
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#fbbf24', '#34d399', '#ffffff']
+                });
+            } else {
+                alert('Mật khẩu không đúng!');
+                pinInput.value = '';
+                pinInput.focus();
             }
         }
 
