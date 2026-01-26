@@ -1267,7 +1267,6 @@
             <div class="year-display">2026</div>
             <div class="food-icons">
                 <div class="food-icon-item">🍜</div>
-                <div class="food-icon-item">🧋</div>
                 <div class="food-icon-item">🥟</div>
                 <div class="food-icon-item">🍡</div>
                 <div class="food-icon-item">🍰</div>
@@ -1363,6 +1362,7 @@
             <div class="game-container">
                 <h2>CHỌN LOẠI TÚI LỘC (20K)</h2>
                 <p>Mỗi túi chứa một món ẩm thực bất ngờ!</p>
+                <p> Hiên tại chưa có túi mù</p>
                 <div class="bag-options">
                     <button class="btn steam-effect" onclick="openSelector('Nước')">🧋 Nước Giải Khát</button>
                     <button class="btn hot-item" onclick="openSelector('Đồ Ăn')">🌭 Đồ Ăn Vặt Nóng</button>
@@ -1507,19 +1507,19 @@
         // DỮ LIỆU SẢN PHẨM
         const ITEMS = {
             'Nước': [ 
-                {name:"Trà tắc khổng lồ", cost:8000, gW:15, aW:75, icon:"🥤", desc:"Trà tắc mát lạnh"}, 
-                {name:"Trà đào cam sả", cost:13000, gW:35, aW:20, icon:"🍑", desc:"Thơm mùi đào tươi"}, 
-                {name:"Trà dâu tằm", cost:18000, gW:50, aW:5, icon:"🍓", desc:"Dâu tằm nguyên chất"} 
+                {name:"Chưa có", cost:'?k', gW:15, aW:75, icon:"🧋", desc:""}, 
+                {name:"Chưa có", cost:'?k', gW:35, aW:20, icon:"🧋", desc:""}, 
+                {name:"Chưa có", cost:'?k', gW:50, aW:5, icon:"🧋", desc:""} 
             ],
             'Đồ Ăn': [ 
-                {name:"Nem chua rán", cost:9000, gW:15, aW:75, icon:"🍢", desc:"Nóng giòn thơm ngon"}, 
-                {name:"Bánh lá", cost:12000, gW:35, aW:20, icon:"🫔", desc:"Bánh truyền thống"}, 
-                {name:"Combo Mẹt Lớn", cost:24000, gW:50, aW:5, icon:"🍱", desc:"Đầy đủ món ngon"} 
+                {name:"Chưa có", cost:'?k', gW:15, aW:75, icon:"🧋", desc:""}, 
+                {name:"Chưa có", cost:'?k', gW:35, aW:20, icon:"🫔", desc:""}, 
+                {name:"Chưa có", cost:'?k', gW:50, aW:5, icon:"🧋", desc:""} 
             ],
             'Tráng Miệng': [ 
-                {name:"Rau câu dừa", cost:6000, gW:15, aW:75, icon:"🍮", desc:"Ngọt mát thanh tao"}, 
-                {name:"Sữa chua mít", cost:13000, gW:35, aW:20, icon:"🍨", desc:"Chua ngọt hài hòa"}, 
-                {name:"Chè bưởi", cost:17000, gW:50, aW:5, icon:"🥣", desc:"Thơm mùi bưởi"} 
+                {name:"Chưa có", cost:'?k', gW:15, aW:75, icon:"🧋", desc:""}, 
+                {name:"Chưa có", cost:'?k', gW:35, aW:20, icon:"🧋", desc:""}, 
+                {name:"Chưa có", cost:'?k', gW:50, aW:5, icon:"🧋", desc:""} 
             ],
             'Wheel': [
                 {name:"Kẹo",    cost:1000, gW:10, aW:40, icon:"🍬", desc:"Ngọt ngào ngày Tết"}, 
@@ -2122,3 +2122,4 @@
     </script>
 </body>
 </html>
+
