@@ -30,6 +30,13 @@
             --food-gold: #f59e0b;   /* Màu chiên giòn */
             --food-green: #10b981;  /* Màu rau củ */
             --food-brown: #92400e;  /* Màu thịt nướng */
+            /* Màu cho mức tồn kho */
+            --stock-high: #fef3c7;     /* >50% - Sáng rực */
+            --stock-medium: #fde68a;   /* 20-50% - Hơi nhạt */
+            --stock-low: #fbbf24;      /* <20% - Nhạt hơn */
+            --stock-out: #9ca3af;      /* Hết hàng - Tối */
+            --stock-bg-high: rgba(251, 191, 36, 0.15);    /* Nền sáng */
+            --stock-bg-out: rgba(0, 0, 0, 0.4);           /* Nền tối */
         }
 
         * { 
@@ -41,7 +48,7 @@
         }
         
         html, body {
-            overscroll-behavior: none;
+        overscroll-behavior: auto; /* hoặc xóa hoàn toàn */
         }
         
         html {
@@ -51,19 +58,20 @@
         }
         
         body { 
-            margin: 0; 
-            padding: 0;
-            background: var(--bg); 
-            background-image: var(--bg-gradient);
-            color: var(--text); 
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-            display: flex; 
-            flex-direction: column; 
-            overflow-x: hidden;
-            position: relative;
-            -webkit-text-size-adjust: 100%;
-            touch-action: manipulation;
+        margin: 0; 
+        padding: 0;
+        background: var(--bg); 
+        background-image: var(--bg-gradient);
+        color: var(--text); 
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+        display: flex; 
+        flex-direction: column; 
+        overflow-x: hidden;
+        overflow-y: auto; /* THÊM DÒNG NÀY */
+        position: relative;
+        -webkit-text-size-adjust: 100%;
+        touch-action: pan-y; /* THAY ĐỔI manipulation thành pan-y */
         }
 
         /* --- INTRO SCREEN RESPONSIVE --- */
@@ -239,7 +247,6 @@
         .food-icon-item:nth-child(3) { animation-delay: 1s; }
         .food-icon-item:nth-child(4) { animation-delay: 1.5s; }
         .food-icon-item:nth-child(5) { animation-delay: 2s; }
-        .food-icon-item:nth-child(6) { animation-delay: 2.5s; }
 
         @keyframes foodFloat {
             0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -458,60 +465,6 @@
             margin: 0 auto;
         }
 
-        /* Banner món đặc biệt mobile */
-        .special-banner {
-            background: linear-gradient(90deg, var(--food-red), var(--food-gold));
-            border-radius: 12px;
-            padding: 10px 15px;
-            margin: 15px auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            animation: pulse 2s infinite;
-            border: 2px solid var(--primary);
-            box-shadow: 0 3px 10px rgba(220, 38, 38, 0.3);
-            text-align: center;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .special-banner > div:first-child {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .special-banner > div:first-child > div:first-child {
-            font-size: 1.8rem;
-        }
-
-        .special-banner > div:first-child > div:nth-child(2) {
-            text-align: left;
-        }
-
-        .special-banner > div:first-child > div:nth-child(2) > div:first-child {
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .special-banner > div:first-child > div:nth-child(2) > div:nth-child(2) {
-            font-size: 0.85rem;
-        }
-
-        .special-banner button {
-            background: white;
-            color: var(--food-red);
-            border: none;
-            padding: 8px 20px;
-            border-radius: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.9rem;
-            min-width: 120px;
-        }
-
         @keyframes pulse { 
             0% { transform: scale(1); } 
             50% { transform: scale(1.01); } 
@@ -547,7 +500,7 @@
         .menu-card:active { 
             transform: translateY(-4px) scale(0.99); 
             border-color: var(--primary); 
-            box-shadow: 0 12px 20px -5px rgba(251, 191, 36, 0.3);
+            box-shadow: 0 12px 20px -5px rgba(251, 191, 36, 0.3); 
         }
         
         .menu-icon { 
@@ -649,36 +602,6 @@
             font-size: 2rem; 
             color: var(--primary); 
             text-shadow: 0 2px 4px black;
-        }
-
-        /* --- BAG SCREEN RESPONSIVE --- */
-        .game-container {
-            text-align: center;
-            padding: 0 10px;
-        }
-
-        .game-container h2 {
-            color: var(--primary);
-            font-family: var(--font-tet);
-            font-size: 1.5rem;
-            margin: 10px 0;
-            line-height: 1.3;
-        }
-
-        .game-container p {
-            color: var(--text-dim);
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .bag-options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: 300px;
-            margin: 0 auto;
-            width: 100%;
         }
 
         /* --- STATS SCREEN RESPONSIVE --- */
@@ -839,34 +762,7 @@
             line-height: 1.4;
         }
 
-        /* Bag grid mobile */
-        .bag-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 12px; 
-            margin: 15px 0;
-        }
-        
-        .bag-item { 
-            height: 70px; 
-            background: linear-gradient(135deg, #be185d, #9d174d); 
-            border: 1px solid #f9a8d4;
-            border-radius: 15px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 2rem; 
-            cursor: pointer; 
-            animation: bounce 0.8s infinite alternate ease-in-out;
-            touch-action: manipulation;
-        }
-        
-        .bag-item:active {
-            transform: scale(0.95);
-            animation: none;
-        }
-
-        /* Menu modal mobile */
+        /* Menu modal mobile - CẬP NHẬT CHO HIỆU ỨNG TỒN KHO */
         .menu-content {
             text-align: left;
             background: rgba(0,0,0,0.3);
@@ -896,23 +792,230 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .menu-item:last-child {
-            border-bottom: none;
+        /* Hiệu ứng ánh sáng cho món có tồn kho cao */
+        .menu-item.stock-high {
+            background: var(--stock-bg-high);
+            color: var(--stock-high);
+            border-left: 3px solid var(--primary);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        .menu-item.stock-medium {
+            background: rgba(251, 191, 36, 0.08);
+            color: var(--stock-medium);
+            border-left: 3px solid var(--stock-medium);
+        }
+
+        .menu-item.stock-low {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--stock-low);
+            border-left: 3px solid var(--danger);
+        }
+
+        .menu-item.stock-out {
+            background: var(--stock-bg-out);
+            color: var(--stock-out);
+            border-left: 3px solid var(--stock-out);
+            filter: grayscale(0.7);
+        }
+
+        /* Hiệu ứng cảnh báo sắp hết hàng */
+        .menu-item.stock-low::after {
+            content: "⚠ SẮP HẾT";
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(220, 38, 38, 0.3);
+            color: #fee2e2;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            animation: blinkWarning 1.5s infinite;
+        }
+
+        .menu-item.stock-out::after {
+            content: "HẾT HÀNG";
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #9ca3af;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(251, 191, 36, 0.3); }
+            100% { box-shadow: 0 0 12px rgba(251, 191, 36, 0.6); }
+        }
+
+        @keyframes blinkWarning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .menu-item-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
         }
 
         .menu-item-icon {
-            font-size: 1.2rem;
-            margin-right: 10px;
+            font-size: 1.4rem;
+            margin-right: 12px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .menu-item-details {
+            flex: 1;
+        }
+
+        .menu-item-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+
+        .menu-item-desc {
+            font-size: 0.75rem;
+            color: inherit;
+            opacity: 0.8;
+        }
+
+        .menu-item-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            min-width: 80px;
         }
 
         .menu-item-price {
             color: var(--primary);
             font-weight: bold;
             font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .menu-item-stock {
+            font-size: 0.75rem;
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-align: center;
+            min-width: 40px;
+        }
+
+        .stock-high .menu-item-stock {
+            background: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+        }
+
+        .stock-medium .menu-item-stock {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .stock-low .menu-item-stock {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fecaca;
+        }
+
+        .stock-out .menu-item-stock {
+            background: rgba(156, 163, 175, 0.2);
+            color: #9ca3af;
+        }
+
+        /* Nút chỉnh sửa số lượng (chỉ hiện cho admin) */
+        .stock-edit-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            margin-left: 5px;
+            transition: 0.2s;
+        }
+
+        .stock-edit-btn:hover {
+            background: var(--primary);
+            color: #450a0a;
+        }
+
+        /* Modal chỉnh sửa số lượng */
+        .stock-edit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10002;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .stock-edit-content {
+            background: linear-gradient(135deg, #450a0a, #2a0505);
+            padding: 25px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 350px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.3);
+        }
+
+        .stock-edit-content h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-family: var(--font-tet);
+            text-align: center;
+        }
+
+        .stock-edit-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid var(--primary);
+            background: #2a0505;
+            color: white;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .stock-edit-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .stock-edit-buttons button {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         /* Result modal mobile */
@@ -970,103 +1073,9 @@
             100% { transform: translate(80px, 100vh) rotate(360deg); opacity: 0; }
         }
 
-        .steam-effect {
-            position: relative;
-        }
-        .steam-effect::after {
-            content: "";
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            width: 25px;
-            height: 35px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            filter: blur(6px);
-            animation: steam 3s infinite ease-in-out;
-            transform: translateX(-50%);
-        }
-
-        @keyframes steam {
-            0% { transform: translateX(-50%) translateY(0) scale(0.8); opacity: 0.5; }
-            50% { transform: translateX(-50%) translateY(-12px) scale(1); opacity: 0.8; }
-            100% { transform: translateX(-50%) translateY(-25px) scale(1.2); opacity: 0; }
-        }
-
-        .hot-item {
-            position: relative;
-            animation: hotGlow 2s infinite alternate;
-        }
-
-        @keyframes hotGlow {
-            from { filter: drop-shadow(0 0 4px rgba(255, 100, 0, 0.5)); }
-            to { filter: drop-shadow(0 0 12px rgba(255, 50, 0, 0.8)); }
-        }
-
         @keyframes fadeIn { 
             from { opacity: 0; transform: translateY(8px); } 
             to { opacity: 1; transform: translateY(0); } 
-        }
-        
-        @keyframes bounce { 
-            from { transform: translateY(0); } 
-            to { transform: translateY(-6px); } 
-        }
-
-        /* --- UNBOXING OVERLAY RESPONSIVE --- */
-        #unboxing-overlay {
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.95); 
-            z-index: 20000;
-            display: none; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .opening-bag { 
-            font-size: 5rem; 
-            filter: drop-shadow(0 0 15px var(--accent)); 
-            transition: 0.3s; 
-        }
-        
-        .zoom-shake { 
-            animation: zoom-in 5s forwards, shake 0.1s infinite; 
-        }
-
-        @keyframes zoom-in { 
-            0% { transform: scale(0.5); } 
-            100% { transform: scale(2); } 
-        }
-        
-        @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg) scale(2); }
-            20% { transform: translate(-2px, 0px) rotate(1deg) scale(2); }
-            40% { transform: translate(1px, -1px) rotate(1deg) scale(2); }
-            60% { transform: translate(-2px, 1px) rotate(0deg) scale(2); }
-            80% { transform: translate(-1px, -1px) rotate(1deg) scale(2); }
-            100% { transform: translate(1px, -1px) rotate(-1deg) scale(2); }
-        }
-        
-        .shatter { 
-            animation: shatter-effect 0.4s ease-out forwards; 
-        }
-        
-        @keyframes shatter-effect {
-            0% { transform: scale(2); opacity: 1; }
-            100% { transform: scale(4); opacity: 0; filter: blur(12px); }
-        }
-
-        #unboxing-status {
-            margin-top: 40px;
-            letter-spacing: 3px;
-            color: white;
-            text-shadow: 0 0 8px red;
-            font-size: 1.2rem;
-            text-align: center;
-            padding: 0 10px;
         }
 
         /* --- MEDIA QUERIES CHO MÀN HÌNH LỚN HƠN --- */
@@ -1099,7 +1108,7 @@
             }
             
             .menu-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
                 gap: 20px;
                 max-width: 600px;
                 margin: 20px auto;
@@ -1116,13 +1125,6 @@
             
             .menu-title {
                 font-size: 1.2rem;
-            }
-            
-            .special-banner {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 12px 20px;
-                max-width: 600px;
             }
             
             .hero-title {
@@ -1183,10 +1185,6 @@
                 max-width: 700px;
             }
             
-            .special-banner {
-                max-width: 700px;
-            }
-            
             .wheel-wrap {
                 width: 320px;
                 height: 320px;
@@ -1223,7 +1221,7 @@
                 min-height: calc(60px + env(safe-area-inset-top, 0));
             }
             
-            .btn, .menu-card, .bag-item {
+            .btn, .menu-card {
                 cursor: pointer;
             }
         }
@@ -1252,6 +1250,53 @@
         /* --- TẮT TAP HIGHLIGHT TRÊN MOBILE --- */
         * {
             -webkit-tap-highlight-color: transparent;
+        }
+        /* --- FIX LỆCH VÒNG QUAY --- */
+        .game-container {
+            text-align: center;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .game-container h2 {
+            color: var(--primary);
+            font-family: var(--font-tet);
+            font-size: 1.5rem;
+            margin: 10px 0 5px 0;
+            line-height: 1.3;
+            text-align: center;
+            width: 100%;
+        }
+
+        .game-container p {
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            text-align: center;
+            width: 100%;
+        }
+
+        .wheel-wrap {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 15px auto;
+            max-width: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Căn chỉnh nút quay */
+        #spin-btn {
+            width: 200px !important;
+            margin: 20px auto !important;
+            display: block !important;
         }
     </style>
 </head>
@@ -1284,11 +1329,6 @@
         <div class="countdown" id="countdown">5</div>
     </div>
 
-    <div id="unboxing-overlay">
-        <div id="opening-bag-icon" class="opening-bag">🧧</div>
-        <h2 id="unboxing-status">ĐANG KHUI TÚI LỘC...</h2>
-    </div>
-
     <div class="header">
         <div class="logo" onclick="handleLogoClick()">🍜 Lớp 8/1</div>
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -1307,27 +1347,11 @@
                 <div id="guest-notice" class="exp-tag">🎯 Ăn ngon - Chơi vui - Trúng thưởng lớn!</div>
             </div>
             
-            <div class="special-banner">
-                <div>
-                    <div>🔥</div>
-                    <div>
-                        <div>MÓN ĐẶC BIỆT HÔM NAY</div>
-                        <div>Coming soon!</div>
-                    </div>
-                </div>
-                <button onclick="nav('bag')">ĐẶT NGAY</button>
-            </div>
-            
             <center>
-                <button class="btn btn-menu" onclick="showMenuModal()">📜 THỰC ĐƠN TẾT</button>
+                <button class="btn btn-menu" onclick="showMenuModal()">📜 Menu TẾT</button>
             </center>
             
             <div class="menu-grid">
-                <div class="menu-card" onclick="nav('bag')">
-                    <div class="menu-icon">🧧</div>
-                    <div class="menu-title">Túi Mù Ẩm Thực<br>Coming soon!</div>
-                    <small>Bí mật ngon lành!</small>
-                </div>
                 <div class="menu-card" onclick="nav('wheel')">
                     <div class="menu-icon">🎡</div>
                     <div class="menu-title">Vòng Quay<br>Thần Tài</div>
@@ -1357,20 +1381,6 @@
             </div>
         </div>
 
-        <div id="screen-bag" class="screen">
-            <div class="back-button" onclick="nav('home')">← Về trang chủ</div>
-            <div class="game-container">
-                <h2>CHỌN LOẠI TÚI LỘC (20K)</h2>
-                <p>Mỗi túi chứa một món ẩm thực bất ngờ!</p>
-                <p> Hiên tại chưa có túi mù</p>
-                <div class="bag-options">
-                    <button class="btn steam-effect" onclick="openSelector('Nước')">🧋 Nước Giải Khát</button>
-                    <button class="btn hot-item" onclick="openSelector('Đồ Ăn')">🌭 Đồ Ăn Vặt Nóng</button>
-                    <button class="btn" onclick="openSelector('Tráng Miệng')">🍮 Tráng Miệng</button>
-                </div>
-            </div>
-        </div>
-
         <div id="screen-wheel" class="screen">
             <div class="back-button" onclick="nav('home')">← Về trang chủ</div>
             <div class="game-container">
@@ -1387,82 +1397,47 @@
         <div id="screen-stats" class="screen">
             <div class="back-button" onclick="nav('home')">← Về trang chủ</div>
             <h2>📊 BÁO CÁO ẨM THỰC</h2>
+            
             <div class="stat-bar">
-                <div class="stat-box" style="border-bottom-color: var(--success);">
-                    <small>Tổng thu</small>
-                    <div id="total-rev" class="stat-val" style="color:var(--success);">0đ</div>
+                <div class="stat-box" style="border-bottom-color: var(--accent);">
+                    <small>Doanh thu</small>
+                    <div id="wheel-rev" class="stat-val" style="color:var(--accent);">0đ</div>
                 </div>
-                <div class="stat-box" style="border-bottom-color: var(--danger);">
-                    <small>Tiền vốn</small>
-                    <div id="total-cost" class="stat-val" style="color:var(--danger);">0đ</div>
+                <div class="stat-box" style="border-bottom-color: var(--text-dim);">
+                    <small>Vốn</small>
+                    <div id="wheel-cost" class="stat-val" style="color:var(--text-dim);">0đ</div>
                 </div>
-                <div class="stat-box" style="border-bottom-color: var(--primary);">
-                    <small>Lãi ròng</small>
-                    <div id="total-profit" class="stat-val" style="color:var(--primary);">0đ</div>
+                <div class="stat-box" style="border-bottom-color: #9ca3af;">
+                    <small>Lãi/lỗ</small>
+                    <div id="wheel-profit" class="stat-val" style="color:#9ca3af;">0đ</div>
                 </div>
             </div>
-            <div style="overflow-x: auto;">
+            
+            <div style="overflow-x: auto; margin-top: 20px;">
                 <table>
                     <thead>
                         <tr>
                             <th>Thời gian</th>
-                            <th>Món</th>
+                            <th>Quà</th>
+                            <th>Giá bán</th>
                             <th>Giá vốn</th>
-                            <th>Xóa</th>
+                            <th>Lãi/lỗ</th>
+                            <th>Hoàn trả</th>
                         </tr>
                     </thead>
-                    <tbody id="stat-table"></tbody>
+                    <tbody id="stat-table-wheel"></tbody>
                 </table>
             </div>
-            <button class="btn btn-danger" onclick="clearStats()">XÓA SỔ SÁCH</button>
+            
+            <button class="btn btn-danger" onclick="clearStats()" style="margin-top: 20px;">XÓA SỔ SÁCH</button>
         </div>
     </div>
 
     <div id="menu-modal" class="overlay" onclick="hideMenuModal(event)">
         <div class="modal" onclick="event.stopPropagation()">
-            <h2>📜 THỰC ĐƠN LỄ HỘI</h2>
-            <div class="menu-content">
-                <div class="menu-category">🧋 Coming soon</div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🧋</span>???</span>
-                    <span class="menu-item-price">?k</span>
-                </div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🧋</span>???</span>
-                    <span class="menu-item-price">?k</span>
-                </div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🧋</span>???</span>
-                    <span class="menu-item-price">?k</span>
-                </div>
-                
-                <div class="menu-category">🧋 Coming soon</div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🧋</span>???</span>
-                    <span class="menu-item-price">?k</span>
-                </div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🫔</span>???</span>
-                    <span class="menu-item-price">?k</span>
-                </div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🧋</span>???</span>
-                    <span class="menu-item-price">?k</span>
-                </div>
-                
-                <div class="menu-category">🧋 Coming soon</div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🧋</span>???</span>
-                    <span class="menu-item-price">?k</span>
-                </div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🧋</span>???</span>
-                    <span class="menu-item-price">?k</span>
-                </div>
-                <div class="menu-item">
-                    <span><span class="menu-item-icon">🧋</span>???</span>
-                    <span class="menu-item-price">?k</span>
-                </div>
+            <h2>📜 THỰC ĐƠN</h2>
+            <div class="menu-content" id="menu-content">
+                <!-- Menu sẽ được tạo động bằng JavaScript -->
             </div>
             <button class="btn btn-primary" onclick="hideMenuModal()">ĐÓNG THỰC ĐƠN</button>
         </div>
@@ -1477,26 +1452,28 @@
         </div>
     </div>
 
-    <div id="bag-selector" class="overlay">
-        <div class="modal">
-            <h3>CHỌN TÚI LỘC BẤT KỲ</h3>
-            <p>Chọn 1 trong 9 túi để khám phá món ăn!</p>
-            <div class="bag-grid" id="bag-grid"></div>
-        </div>
-    </div>
-
     <div id="res-modal" class="overlay" style="z-index: 10001;">
         <div class="modal">
             <div id="res-icon">🎁</div>
             <h3 id="res-name">---</h3>
             <div id="res-wish"></div>
-            <div id="admin-actions" style="display:none; margin-top: 15px;">
-                <button class="btn btn-primary" style="background:var(--success); margin-bottom:10px; color:black;" onclick="saveEntry(true)">LƯU DOANH THU</button>
-            </div>
             <button class="btn btn-primary" style="background:#334155; color:white; margin-top: 15px;" onclick="saveEntry(false)">ĐÓNG</button>
         </div>
     </div>
-
+    
+    <!-- Modal chỉnh sửa số lượng -->
+    <div id="stock-edit-modal" class="stock-edit-modal">
+        <div class="stock-edit-content">
+            <h3>CHỈNH SỐ LƯỢNG</h3>
+            <div id="stock-edit-name" style="text-align:center; margin-bottom:15px; color:var(--primary);"></div>
+            <input type="number" id="stock-edit-quantity" class="stock-edit-input" min="0" step="1" value="0">
+            <div class="stock-edit-buttons">
+                <button style="background:var(--danger); color:white;" onclick="closeStockEdit()">HỦY</button>
+                <button style="background:var(--success); color:white;" onclick="saveStockEdit()">LƯU</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         // CHẶN PHÍM TẮT VÀ MENU NGỮ CẢNH
         document.addEventListener('contextmenu', e => e.preventDefault());
@@ -1504,32 +1481,44 @@
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; 
         };
 
+        // ==================== PHẦN QUAN TRỌNG: TỰ ĐỘNG RESET KHI CÓ THAY ĐỔI ====================
+        const MENU_VERSION = '2.1'; // Tăng version này mỗi khi bạn thay đổi menu
+        const SAVED_VERSION = localStorage.getItem('tet_menu_version');
+
+        // Nếu version cũ khác version mới, xóa dữ liệu cũ
+        if (SAVED_VERSION !== MENU_VERSION) {
+            console.log('🔄 Phát hiện menu mới, đang xóa dữ liệu cũ...');
+            localStorage.removeItem('tet_8_1_menu');
+            localStorage.removeItem('tet_8_1_food');
+            localStorage.setItem('tet_menu_version', MENU_VERSION);
+            console.log('✅ Đã cập nhật menu phiên bản mới:', MENU_VERSION);
+        }
+
         // DỮ LIỆU SẢN PHẨM
+        const MENU_ITEMS = {
+            'Nước Giải Khát': [
+                {id: 'nước_sâm_001', name: "Nước sâm", cost: 10000, stock: 100, icon: "🥤", desc:"Nước sâm mát lạnh"},
+                {id: 'trà_tắc_002', name: "Trà tắc", cost: 10000, stock: 100, icon: "🍋", desc:"Trà tắc thơm ngon"},
+            ],
+            'Đồ Ăn Vặt': [
+                {id: 'bánh_lọc_001', name: "Bánh lọc", cost: 5000, stock: 200, icon: "🌯", desc: "Bánh lọc"},
+                {id: 'bắp_xào_002', name: "Bắp xào", cost: 20000, stock: 75, icon: "🌽", desc: "Bắp xào thơm ngon"},
+                {id: 'khoai_tây_003', name: "Khoai Tây lắc phô mai", cost: 20000, stock: 70, icon: "🍟", desc: "Giòn tan"},
+                {id: 'xôi_truyền_thống_004', name: "Xôi truyền thống", cost: 15000, stock: 50, icon: "🌭", desc: "Xúc xích nướng thơm lừng"},
+                {id: 'bắp_rang_bơ_005', name: "Bắp rang bơ", cost: 10000, stock: 50, icon: "🍿", desc: "Bắp rang bơ thơm ngon"},
+                {id: 'khoai_tây_chấm_006', name: "Khoai tây chấm tương", cost: 15000, stock: 100, icon: "🍟", desc: "Giòn tan sốt đặc biệt"},
+                {id: 'khô_gà_007', name: "Khô gà", cost: 15000, stock: 50, icon: "🥓", desc: "Khô gà dai dai"},
+                {id: 'xôi_mặn_008', name: "Xôi mặn", cost: 15000, stock: 15, icon: "🍚", desc: "Xôi mặn đậm đà"}
+            ]
+        };
+
+        // VÒNG QUAY ITEMS
         const ITEMS = {
-            'Nước': [ 
-                {name:"Chưa có", cost:'?k', gW:15, aW:75, icon:"🧋", desc:""}, 
-                {name:"Chưa có", cost:'?k', gW:35, aW:20, icon:"🧋", desc:""}, 
-                {name:"Chưa có", cost:'?k', gW:50, aW:5, icon:"🧋", desc:""} 
-            ],
-            'Đồ Ăn': [ 
-                {name:"Chưa có", cost:'?k', gW:15, aW:75, icon:"🧋", desc:""}, 
-                {name:"Chưa có", cost:'?k', gW:35, aW:20, icon:"🫔", desc:""}, 
-                {name:"Chưa có", cost:'?k', gW:50, aW:5, icon:"🧋", desc:""} 
-            ],
-            'Tráng Miệng': [ 
-                {name:"Chưa có", cost:'?k', gW:15, aW:75, icon:"🧋", desc:""}, 
-                {name:"Chưa có", cost:'?k', gW:35, aW:20, icon:"🧋", desc:""}, 
-                {name:"Chưa có", cost:'?k', gW:50, aW:5, icon:"🧋", desc:""} 
-            ],
             'Wheel': [
-                {name:"Kẹo",    cost:1000, gW:10, aW:40, icon:"🍬", desc:"Ngọt ngào ngày Tết"}, 
-                {name:"Voucher 5k", cost:5000, gW:35, aW:20, icon:"🎟️", desc:"Giảm 5k món bất kỳ"},
-                {name:"Voucher 10k",cost:10000,gW:50, aW:10,  icon:"🎟️", desc:"Giảm 10k món đặc biệt"}, 
-                {name:"Mất lượt",   cost:0,    gW:5,  aW:30, icon:"😭", desc:"Chúc bạn may mắn lần sau"},
-                {name:"Kẹo",    cost:1000, gW:20, aW:40, icon:"🍬", desc:"Ngọt ngào ngày Tết"}, 
-                {name:"Voucher 5k", cost:5000, gW:30, aW:20, icon:"🎟️", desc:"Giảm 5k món bất kỳ"},
-                {name:"Voucher 10k",cost:10000,gW:40, aW:10,  icon:"🎟️", desc:"Giảm 10k món đặc biệt"}, 
-                {name:"Mất lượt",   cost:0,    gW:5,  aW:30, icon:"😭", desc:"Chúc bạn may mắn lần sau"}
+                {name: "Kẹo", cost: 1000, gW: 40, aW: 40, icon: "🍬", desc: "Ngọt ngào ngày Tết"},
+                {name: "Voucher 5k", cost: 5000, gW: 15, aW: 15, icon: "🎟️", desc: "Giảm 5k món bất kỳ"},
+                {name: "Voucher 10k", cost: 10000, gW: 5, aW: 5, icon: "🎟️", desc: "Giảm 10k món đặc biệt"},
+                {name: "Chúc bạn may mắn lần sau", cost: 0, gW: 40, aW: 40, icon: "🍀", desc: "Chúc bạn may mắn lần sau"}
             ]
         };
 
@@ -1551,6 +1540,7 @@
         let isAdmin = false, pinUnlocked = false, isSpinning = false;
         let stats = JSON.parse(localStorage.getItem('tet_8_1_food')) || [];
         let pending = null;
+        let currentEditingItem = null;
 
         // HÀM XỬ LÝ MENU MODAL
         function showMenuModal() {
@@ -1566,6 +1556,289 @@
         // HÀM LẤY LỜI CHÚC NGẪU NHIÊN
         function getRandomWish() {
             return TET_WISHES[Math.floor(Math.random() * TET_WISHES.length)];
+        }
+
+        // ==================== HÀM QUẢN LÝ MENU ====================
+        // Hiển thị menu với số lượng tồn kho
+        function renderMenu() {
+            
+            const menuContent = document.getElementById('menu-content');
+            if (!menuContent) return;
+            
+            console.log("🔍 [DEBUG] MENU_ITEMS:", MENU_ITEMS);
+            console.log("🔍 [DEBUG] Món nước:", MENU_ITEMS['Nước Giải Khát']);
+            
+            menuContent.innerHTML = '';
+            
+            for (const category in MENU_ITEMS) {
+                // Tạo tiêu đề danh mục
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'menu-category';
+                categoryElement.innerHTML = `🍽️ ${category}`;
+                menuContent.appendChild(categoryElement);
+                
+                // Tạo các món trong danh mục
+                MENU_ITEMS[category].forEach(item => {
+                    const menuItem = document.createElement('div');
+                    
+                    // Xác định class dựa trên số lượng tồn kho
+                    let stockClass = 'stock-high';
+                    if (item.stock === 0) {
+                        stockClass = 'stock-out';
+                    } else if (item.stock < (item.originalStock || item.stock) * 0.2) {
+                        stockClass = 'stock-low';
+                    } else if (item.stock < (item.originalStock || item.stock) * 0.5) {
+                        stockClass = 'stock-medium';
+                    }
+                    
+                    menuItem.className = `menu-item ${stockClass}`;
+                    menuItem.dataset.id = item.id;
+                    
+                    // Hiển thị giá phù hợp
+                    const priceDisplay = typeof item.cost === 'string' ? item.cost : item.cost.toLocaleString() + 'đ';
+                    
+                    menuItem.innerHTML = `
+                        <div class="menu-item-info">
+                            <div class="menu-item-icon">${item.icon}</div>
+                            <div class="menu-item-details">
+                                <div class="menu-item-name">${item.name}</div>
+                                <div class="menu-item-desc">${item.desc}</div>
+                            </div>
+                        </div>
+                        <div class="menu-item-right">
+                            <div class="menu-item-price">${priceDisplay}</div>
+                            <div class="menu-item-stock">
+                                ${item.stock} phần
+                                ${isAdmin ? `<button class="stock-edit-btn" onclick="openStockEdit('${item.id}')">Sửa</button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    menuContent.appendChild(menuItem);
+                });
+            }
+            
+            // Lưu vào localStorage
+            saveMenuToStorage();
+        }
+
+        // ==================== HÀM RENDERSTATS DUY NHẤT ====================
+        function renderStats() {
+            // KHỞI TẠO BIẾN TÍNH TOÁN
+            let wheelRevenue = 0;
+            let wheelCost = 0;
+            
+            // LỌC DỮ LIỆU THEO LOẠI
+            const wheelItems = stats.filter(item => 
+                item.type === 'Vòng Quay'
+            );
+            
+            // TÍNH TOÁN VÒNG QUAY
+            wheelItems.forEach((item, index) => {
+                wheelRevenue += 0; // Vòng quay là quà tặng
+                wheelCost += item.cost || 0;
+            });
+            
+            // TÍNH TOÁN LỢI NHUẬN
+            const wheelProfit = wheelRevenue - wheelCost;
+            
+            // HIỂN THỊ VÒNG QUAY
+            if (document.getElementById('wheel-rev')) {
+                document.getElementById('wheel-rev').innerText = wheelRevenue.toLocaleString() + 'đ';
+                document.getElementById('wheel-cost').innerText = wheelCost.toLocaleString() + 'đ';
+                document.getElementById('wheel-profit').innerText = wheelProfit.toLocaleString() + 'đ';
+                document.getElementById('wheel-profit').style.color = wheelProfit >= 0 ? 'var(--success)' : 'var(--danger)';
+            }
+            
+            // HIỂN THỊ BẢNG VÒNG QUAY
+            renderWheelTable(wheelItems);
+        }
+
+        // ==================== HIỂN THỊ BẢNG VÒNG QUAY ====================
+        function renderWheelTable(items) {
+            const tbody = document.getElementById('stat-table-wheel');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+            
+            if (items.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 20px; color: var(--text-dim);">
+                            🎡 Chưa có quay thưởng nào
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            items.forEach((item, index) => {
+                const salePrice = 0;
+                const cost = item.cost || 0;
+                const profit = salePrice - cost;
+                
+                // Tìm index thực trong stats
+                const realIndex = stats.findIndex(stat => 
+                    stat.date === item.date && 
+                    stat.name === item.name && 
+                    stat.type === item.type
+                );
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><small>${item.date || ''}</small></td>
+                    <td>
+                        <b>${item.name || ''} ${item.icon || ''}</b><br>
+                        <small style="color:var(--accent)">Vòng Quay</small>
+                    </td>
+                    <td>0đ</td>
+                    <td>${cost.toLocaleString()}đ</td>
+                    <td style="color:${profit >= 0 ? 'var(--success)' : 'var(--danger)'}">
+                        ${profit >= 0 ? '+' : ''}${profit.toLocaleString()}đ
+                    </td>
+                    <td>
+                        <button onclick="deleteStat(${realIndex})" 
+                                style="border:none; background:none; cursor:pointer; color:red; font-size:16px; padding:5px;" 
+                                title="Xóa & Hoàn trả">
+                            ↩️
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Mở modal chỉnh sửa số lượng
+        function openStockEdit(itemId) {
+            if (!isAdmin) return;
+            
+            // Tìm item trong menu
+            let targetItem = null;
+            for (const category in MENU_ITEMS) {
+                const found = MENU_ITEMS[category].find(item => item.id === itemId);
+                if (found) {
+                    targetItem = found;
+                    break;
+                }
+            }
+            
+            if (!targetItem) return;
+            
+            currentEditingItem = targetItem;
+            document.getElementById('stock-edit-name').textContent = `${targetItem.icon} ${targetItem.name}`;
+            document.getElementById('stock-edit-quantity').value = targetItem.stock;
+            document.getElementById('stock-edit-modal').style.display = 'flex';
+            document.getElementById('stock-edit-quantity').focus();
+        }
+
+        // Đóng modal chỉnh sửa số lượng
+        function closeStockEdit() {
+            document.getElementById('stock-edit-modal').style.display = 'none';
+            currentEditingItem = null;
+        }
+
+        // Lưu chỉnh sửa số lượng
+        function saveStockEdit() {
+            if (!currentEditingItem) return;
+            
+            const newQuantity = parseInt(document.getElementById('stock-edit-quantity').value);
+            if (isNaN(newQuantity) || newQuantity < 0) {
+                alert('Số lượng không hợp lệ!');
+                return;
+            }
+            
+            currentEditingItem.stock = newQuantity;
+            
+            // Cập nhật originalStock nếu chưa có
+            if (!currentEditingItem.originalStock) {
+                currentEditingItem.originalStock = newQuantity;
+            }
+            
+            renderMenu();
+            closeStockEdit();
+        }
+
+        // Giảm số lượng khi bán hàng
+        function decreaseStock(itemId, quantity = 1) {
+            for (const category in MENU_ITEMS) {
+                const itemIndex = MENU_ITEMS[category].findIndex(item => item.id === itemId);
+                if (itemIndex !== -1) {
+                    MENU_ITEMS[category][itemIndex].stock = Math.max(0, MENU_ITEMS[category][itemIndex].stock - quantity);
+                    
+                    if (!MENU_ITEMS[category][itemIndex].originalStock) {
+                        MENU_ITEMS[category][itemIndex].originalStock = MENU_ITEMS[category][itemIndex].stock + quantity;
+                    }
+                    
+                    const item = MENU_ITEMS[category][itemIndex];
+                    if (item.stock < item.originalStock * 0.2 && item.stock > 0) {
+                        console.warn(`⚠ CẢNH BÁO: ${item.name} sắp hết hàng!`);
+                    }
+                    
+                    renderMenu();
+                    saveMenuToStorage();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Tăng số lượng khi nhập hàng
+        function increaseStock(itemId, quantity = 1) {
+            for (const category in MENU_ITEMS) {
+                const itemIndex = MENU_ITEMS[category].findIndex(item => item.id === itemId);
+                if (itemIndex !== -1) {
+                    MENU_ITEMS[category][itemIndex].stock += quantity;
+                    renderMenu();
+                    saveMenuToStorage();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Lưu menu vào localStorage
+        function saveMenuToStorage() {
+            localStorage.setItem('tet_8_1_menu', JSON.stringify(MENU_ITEMS));
+        }
+
+        // Tải menu từ localStorage
+        function loadMenuFromStorage() {
+            const saved = localStorage.getItem('tet_8_1_menu');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    // Cập nhật MENU_ITEMS nhưng giữ cấu trúc mặc định cho các item mới
+                    for (const category in parsed) {
+                        if (MENU_ITEMS[category]) {
+                            parsed[category].forEach(savedItem => {
+                                const existingIndex = MENU_ITEMS[category].findIndex(item => item.id === savedItem.id);
+                                if (existingIndex !== -1) {
+                                    // Giữ nguyên originalStock nếu chưa có
+                                    if (!savedItem.originalStock && savedItem.stock > 0) {
+                                        savedItem.originalStock = savedItem.stock;
+                                    }
+                                    MENU_ITEMS[category][existingIndex] = savedItem;
+                                }
+                            });
+                        }
+                    }
+                } catch (e) {
+                    console.error('Lỗi khi tải menu từ localStorage:', e);
+                }
+            }
+        }
+
+        // ==================== CẬP NHẬT HÀM SHOW MENU MODAL ====================
+        function showMenuModal() {
+            loadMenuFromStorage();
+            renderMenu();
+            document.getElementById('menu-modal').style.display = 'flex';
+        }
+
+        // HÀM ĐÓNG MODAL
+        function saveEntry() {
+            document.getElementById('res-modal').style.display = 'none';
+            pending = null; // Reset pending
         }
 
         // HÀM BẮN PHÁO HOA
@@ -1656,6 +1929,9 @@
 
         // KHỞI TẠO SAU INTRO
         function initAfterIntro() {
+            // TẢI MENU TỪ LOCALSTORAGE
+            loadMenuFromStorage();
+            renderMenu();
             // TẠO HOA RƠI
             const container = document.getElementById('petals-container');
             const petalCount = 20;
@@ -1673,16 +1949,6 @@
             
             // CẬP NHẬT HEADER
             updateHeader();
-            
-            // TỰ ĐỘNG ĐỔI MÀU BANNER
-            setInterval(() => {
-                const banner = document.querySelector('.special-banner');
-                if(banner) {
-                    const colors = ['var(--food-red)', 'var(--food-brown)', '#b91c1c', '#991b1b'];
-                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                    banner.style.background = `linear-gradient(90deg, ${randomColor}, var(--food-gold))`;
-                }
-            }, 10000);
             
             // PHÁO HOA NGẪU NHIÊN
             setInterval(() => {
@@ -1717,7 +1983,7 @@
             window.scrollTo(0, 0);
         }
 
-        // CHUYỂN ĐỔI TÀI KHOẢN (ĐỂ LẠI ĐỂ TƯƠNG THÍCH, NHƯNG KHÔNG CÒN NÚT BẤM)
+        // CHUYỂN ĐỔI TÀI KHOẢN
         function switchAcc(role) {
             if(role === 'admin') {
                 if(pinUnlocked) {
@@ -1751,75 +2017,6 @@
             document.getElementById('welcome-text').innerText = isAdmin ? 'Xin chào, Chủ Quán!' : 'Lễ Hội Ẩm Thực Tết 8/1';
         }
 
-        // MỞ SELECTOR TÚI
-        function openSelector(type) {
-            const grid = document.getElementById('bag-grid'); 
-            grid.innerHTML = '';
-            
-            for(let i = 0; i < 9; i++) {
-                const bagItem = document.createElement('div');
-                bagItem.className = 'bag-item';
-                bagItem.innerHTML = '🧧';
-                bagItem.onclick = () => {
-                    const pool = ITEMS[type];
-                    const key = isAdmin ? 'aW' : 'gW';
-                    let total = pool.reduce((a, b) => a + b[key], 0);
-                    let random = Math.random() * total;
-                    let selectedItem = pool[0];
-                    
-                    for(let item of pool) {
-                        if(random < item[key]) {
-                            selectedItem = item;
-                            break;
-                        }
-                        random -= item[key];
-                    }
-                    
-                    pending = {
-                        ...selectedItem, 
-                        type: 'Túi Mù Ẩm Thực', 
-                        date: new Date().toLocaleTimeString('vi-VN', { 
-                            hour: '2-digit', 
-                            minute: '2-digit' 
-                        })
-                    };
-                    
-                    document.getElementById('bag-selector').style.display = 'none';
-                    triggerUnboxing();
-                };
-                grid.appendChild(bagItem);
-            }
-            
-            document.getElementById('bag-selector').style.display = 'flex';
-        }
-
-        // KÍCH HOẠT UNBOXING
-        function triggerUnboxing() {
-            const overlay = document.getElementById('unboxing-overlay');
-            const bagIcon = document.getElementById('opening-bag-icon');
-            const statusText = document.getElementById('unboxing-status');
-            
-            overlay.style.display = 'flex';
-            bagIcon.className = 'opening-bag zoom-shake';
-            statusText.innerText = 'ĐANG KHUI TÚI LỘC...';
-            
-            let shakeCount = 0;
-            const shakeInterval = setInterval(() => {
-                shakeCount++;
-                if (shakeCount > 30) {
-                    clearInterval(shakeInterval);
-                    
-                    bagIcon.className = 'opening-bag shatter';
-                    statusText.innerText = 'CHÚC MỪNG BẠN! 🎉';
-                    
-                    setTimeout(() => {
-                        overlay.style.display = 'none';
-                        showResult();
-                    }, 500);
-                }
-            }, 120);
-        }
-
         // VẼ VÒNG QUAY
         function drawWheel() {
             const canvas = document.getElementById('wheelCanvas');
@@ -1831,7 +2028,7 @@
             const radius = Math.min(centerX, centerY) - 10;
             
             const colors = ['#b91c1c', '#fbbf24', '#b91c1c', '#fbbf24', '#b91c1c', '#fbbf24', '#b91c1c', '#fbbf24'];
-            const labels = ["KẸO", "5K", "10K", "MẤT", "KẸO", "5K", "10K", "MẤT"];
+            const labels = ["🌸", "🌸", "🌸", "🌸", "🌸", "🌸", "🌸", "🌸"];
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
@@ -1937,8 +2134,22 @@
             
             document.getElementById('res-modal').style.display = 'flex';
             
+            // CHỈ ADMIN MỚI LƯU STATS
+            if (pending && isAdmin) {
+                // Thêm vào thống kê
+                stats.unshift(pending);
+                localStorage.setItem('tet_8_1_food', JSON.stringify(stats));
+                
+                // Cập nhật thống kê ngay lập tức
+                renderStats();
+                console.log(`✅ ADMIN: Đã lưu ${pending.name} vào thống kê`);
+            } else if (pending && !isAdmin) {
+                // KHÁCH: KHÔNG làm gì cả, chỉ chơi thử
+                console.log(`👤 KHÁCH: ${pending.name} - Chỉ chơi thử, không lưu stats`);
+            }
+            
             // PHÁO HOA THEO KẾT QUẢ
-            if(pending.cost > 0) {
+            if(pending && pending.cost > 0) {
                 confetti({
                     particleCount: 150,
                     spread: 90,
@@ -1946,7 +2157,7 @@
                     colors: ['#fbbf24', '#34d399', '#ffffff'],
                     startVelocity: 45
                 });
-            } else {
+            } else if(pending) {
                 confetti({
                     particleCount: 80,
                     spread: 60,
@@ -1955,64 +2166,35 @@
                     startVelocity: 30
                 });
             }
-            
-            document.getElementById('admin-actions').style.display = isAdmin ? 'block' : 'none';
-        }
-
-        // LƯU MỤC DOANH THU
-        function saveEntry(save) {
-            if(save && isAdmin) {
-                stats.unshift(pending);
-                localStorage.setItem('tet_8_1_food', JSON.stringify(stats));
-            }
-            document.getElementById('res-modal').style.display = 'none';
-        }
-
-        // HIỂN THỊ THỐNG KÊ
-        function renderStats() {
-            const tbody = document.getElementById('stat-table');
-            tbody.innerHTML = '';
-            
-            let totalRevenue = 0;
-            let totalCost = 0;
-            
-            stats.forEach((item, index) => {
-                const revenue = item.type === 'Túi Mù Ẩm Thực' ? 20000 : 0;
-                totalRevenue += revenue;
-                totalCost += item.cost;
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><small>${item.date}</small></td>
-                    <td><b>${item.name} ${item.icon}</b><br><small>${item.type}</small></td>
-                    <td>-${item.cost.toLocaleString()}đ</td>
-                    <td><button onclick="deleteStat(${index})" style="border:none; background:none; cursor:pointer; color:red; font-size:16px; padding:5px;">✕</button></td>
-                `;
-                tbody.appendChild(row);
-            });
-            
-            const totalProfit = totalRevenue - totalCost;
-            
-            document.getElementById('total-rev').innerText = totalRevenue.toLocaleString() + 'đ';
-            document.getElementById('total-cost').innerText = totalCost.toLocaleString() + 'đ';
-            document.getElementById('total-profit').innerText = totalProfit.toLocaleString() + 'đ';
-            document.getElementById('total-profit').style.color = totalProfit >= 0 ? 'var(--success)' : 'var(--danger)';
         }
 
         // XÓA MỘT MỤC THỐNG KÊ
         function deleteStat(index) {
+            if(index < 0 || index >= stats.length) return;
+            
             if(confirm('Xóa mục này khỏi sổ sách?')) {
+                // Xóa khỏi stats
                 stats.splice(index, 1);
                 localStorage.setItem('tet_8_1_food', JSON.stringify(stats));
+                
+                alert('✅ Đã xóa giao dịch!');
+                
+                // Cập nhật giao diện
                 renderStats();
             }
         }
 
         // XÓA TOÀN BỘ THỐNG KÊ
         function clearStats() {
-            if(confirm('Bạn có chắc chắn muốn xóa toàn bộ sổ sách?\nHành động này không thể hoàn tác!')) {
+            if(confirm('Bạn có chắc chắn muốn xóa toàn bộ sổ sách?\n\n⚠ CẢNH BÁO: Hành động này không thể hoàn tác!')) {
+                // Xóa toàn bộ
                 stats = [];
                 localStorage.setItem('tet_8_1_food', JSON.stringify(stats));
+                
+                // Thông báo
+                alert('✅ Đã xóa toàn bộ sổ sách!');
+                
+                // Cập nhật giao diện
                 renderStats();
             }
         }
@@ -2057,11 +2239,11 @@
             }
         }
 
-        // KIỂM TRA PIN (Đã cập nhật để tự động chuyển admin khi đúng)
+        // KIỂM TRA PIN
         function checkPin() {
             const pinInput = document.getElementById('admin-pin');
             // Chấp nhận cả 2 mật khẩu bạn đã cung cấp
-            if(pinInput.value === '8b1_2026' || pinInput.value === 'bi12345678') {
+            if(pinInput.value === '8a1_2026' || pinInput.value === 'bi12345678') {
                 pinUnlocked = true; // Đánh dấu đã mở khóa thành công
                 activateAdmin();    // Vào admin ngay lập tức
                 document.getElementById('auth-overlay').style.display = 'none';
@@ -2082,6 +2264,8 @@
 
         // KHỞI TẠO KHI TRANG ĐƯỢC TẢI
         window.onload = function() {
+            // TẢI MENU KHI KHỞI ĐỘNG
+            loadMenuFromStorage();
             // BẮT ĐẦU INTRO
             setTimeout(() => {
                 fireIntroFireworks();
@@ -2122,8 +2306,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
