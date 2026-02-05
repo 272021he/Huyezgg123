@@ -1508,7 +1508,7 @@
                 {id: 'bắp_rang_bơ_005', name: "Bắp rang bơ", cost: 10000, stock: 50, icon: "🍿", desc: "Bắp rang bơ thơm ngon"},
                 {id: 'khoai_tây_chấm_006', name: "Khoai tây chấm tương", cost: 15000, stock: 100, icon: "🍟", desc: "Giòn tan sốt đặc biệt"},
                 {id: 'khô_gà_007', name: "Khô gà", cost: 15000, stock: 50, icon: "🥓", desc: "Khô gà dai dai"},
-                {id: 'xôi_mặn_008', name: "Xôi mặn", cost: 15000, stock: 15, icon: "🍚", desc: "Xôi mặn đậm đà"}
+                {id: 'xôi_mặn_008', name: "Xôi mặn", cost: 15000, stock: 15, icon: "🍚", desc: "Xôi mặn đậm đà"},
             ]
         };
 
@@ -2019,60 +2019,91 @@
 
         // VẼ VÒNG QUAY
         function drawWheel() {
-            const canvas = document.getElementById('wheelCanvas');
-            if(!canvas) return;
+        const canvas = document.getElementById('wheelCanvas');
+        if(!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = Math.min(centerX, centerY) - 10;
+        
+        const colors = ['#b91c1c', '#fbbf24', '#b91c1c', '#fbbf24', '#b91c1c', '#fbbf24', '#b91c1c', '#fbbf24'];
+        const labels = ["🌸", "🌸", "🌸", "🌸", "🌸", "🌸", "🌸", "🌸"];
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Vẽ các phần
+        for(let i = 0; i < 8; i++) {
+            const startAngle = i * (Math.PI / 4);
+            const endAngle = (i + 1) * (Math.PI / 4);
             
-            const ctx = canvas.getContext('2d');
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const radius = Math.min(centerX, centerY) - 10;
-            
-            const colors = ['#b91c1c', '#fbbf24', '#b91c1c', '#fbbf24', '#b91c1c', '#fbbf24', '#b91c1c', '#fbbf24'];
-            const labels = ["🌸", "🌸", "🌸", "🌸", "🌸", "🌸", "🌸", "🌸"];
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Vẽ các phần
-            for(let i = 0; i < 8; i++) {
-                const startAngle = i * (Math.PI / 4);
-                const endAngle = (i + 1) * (Math.PI / 4);
-                
-                ctx.beginPath();
-                ctx.moveTo(centerX, centerY);
-                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-                ctx.closePath();
-                ctx.fillStyle = colors[i];
-                ctx.fill();
-                ctx.strokeStyle = '#450a0a';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-                
-                // Vẽ nhãn
-                ctx.save();
-                ctx.translate(centerX, centerY);
-                ctx.rotate(startAngle + Math.PI / 8);
-                ctx.textAlign = 'right';
-                ctx.fillStyle = i % 2 === 0 ? '#fbbf24' : '#b91c1c';
-                ctx.font = 'bold 11px Inter';
-                ctx.fillText(labels[i], radius - 20, 5);
-                ctx.restore();
-            }
-            
-            // Vẽ trung tâm
             ctx.beginPath();
-            ctx.arc(centerX, centerY, 25, 0, Math.PI * 2);
-            ctx.fillStyle = '#450a0a';
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+            ctx.closePath();
+            ctx.fillStyle = colors[i];
             ctx.fill();
-            ctx.strokeStyle = '#fbbf24';
-            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#450a0a';
+            ctx.lineWidth = 2;
             ctx.stroke();
             
-            ctx.fillStyle = '#fbbf24';
-            ctx.font = 'bold 14px Inter';
+            // Vẽ icon hoa - ICON RẤT LỚN
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(startAngle + Math.PI / 8);
+            
+            // Font rất lớn cho icon
+            ctx.font = 'bold 30px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText('TẾT', centerX, centerY);
+            
+            // Hiệu ứng làm nổi bật icon
+            if (i % 2 === 0) {
+                // Icon trên nền đỏ
+                ctx.fillStyle = '#ffffff'; // Trắng
+                // Hiệu ứng glow cho icon
+                ctx.shadowColor = 'rgba(251, 191, 36, 0.8)';
+                ctx.shadowBlur = 8;
+            } else {
+                // Icon trên nền vàng
+                ctx.fillStyle = '#dc2626'; // Đỏ đậm
+                ctx.shadowColor = 'rgba(185, 28, 28, 0.6)';
+                ctx.shadowBlur = 6;
+            }
+            
+            // Vẽ icon hoa - vị trí giữa ô
+            ctx.fillText(labels[i], radius - 45, 0);
+            
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            
+            ctx.restore();
         }
+        
+        // Vẽ trung tâm - làm to hơn
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+        ctx.fillStyle = '#450a0a';
+        ctx.fill();
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        
+        // Chữ TẾT to hơn
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 20px Inter';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('TẾT', centerX, centerY);
+        
+        // Thêm hiệu ứng glow cho chữ TẾT
+        ctx.shadowColor = 'rgba(251, 191, 36, 0.5)';
+        ctx.shadowBlur = 10;
+        ctx.fillText('TẾT', centerX, centerY);
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+    }
 
         // QUAY VÒNG QUAY
         function playWheel() {
